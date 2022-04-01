@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS members;
+
+CREATE TABLE members
+(
+    name VARCHAR(10) NOT NULL PRIMARY KEY
+);
