@@ -118,4 +118,30 @@ public class MemberDao {
         }
         return null;
     }
+
+    public void deleteById(String id) {
+        final String sql = "delete from member where id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateNameById(String id, String newName) {
+        final String sql = "update member " +
+                "set name = ? " +
+                "where id = ?";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, newName);
+            statement.setString(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

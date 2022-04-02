@@ -47,4 +47,28 @@ class MemberDaoTest {
         final List<Member> members = memberDao.findAll();
         assertThat(members).isNotEmpty();
     }
+
+    @Test
+    void remove() {
+        final MemberDao memberDao = new MemberDao();
+        final Member member = new Member("test_id", "name");
+        memberDao.save(member);
+        System.out.println("저장 완료\n" + memberDao.findById(member.getId()).getName());
+        memberDao.deleteById(member.getId());
+        assertThat(memberDao.findById(member.getId())).isNull();
+    }
+
+    @Test
+    void update() {
+        final MemberDao memberDao = new MemberDao();
+        final Member member = new Member("test_id", "변경전");
+        memberDao.save(member);
+        System.out.println(memberDao.findById(member.getId()).getName());
+
+        memberDao.updateNameById(member.getId(), "변경후");
+        System.out.println(memberDao.findById(member.getId()).getName());
+
+        assertThat(memberDao.findById(member.getId()).getName()).isEqualTo("변경후");
+        memberDao.deleteById(member.getId());
+    }
 }
